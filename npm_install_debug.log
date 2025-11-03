@@ -1,0 +1,35 @@
+npm verb cli C:\Program Files\nodejs\node.exe C:\Users\win\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+npm info using npm@9.8.1
+npm info using node@v20.16.0
+npm verb title npm install
+npm verb argv "install" "--legacy-peer-deps" "--loglevel" "verbose"
+npm verb logfile logs-max:10 dir:C:\Users\win\AppData\Local\npm-cache\_logs\2025-10-18T19_34_31_783Z-
+npm verb logfile C:\Users\win\AppData\Local\npm-cache\_logs\2025-10-18T19_34_31_783Z-debug-0.log
+npm http fetch GET 200 https://registry.npmjs.org/@faker-js%2ffaker 723ms (cache updated)
+npm http fetch GET 200 https://registry.npmjs.org/cypress-mochawesome-reporter 73ms (cache revalidated)
+npm http fetch GET 200 https://registry.npmjs.org/browserstack-cypress-cli 134ms (cache revalidated)
+npm verb stack Error: Invalid tag name "^^15" of package "cypress@^^15": Tags may not have any characters that encodeURIComponent encodes.
+npm verb stack     at invalidTagName (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:118:15)
+npm verb stack     at fromRegistry (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:426:13)
+npm verb stack     at Function.resolve (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:87:12)
+npm verb stack     at #nodeFromEdge (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1048:22)
+npm verb stack     at #buildDepStep (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:917:35)
+npm verb stack     at async Arborist.buildIdealTree (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:196:7)
+npm verb stack     at async Promise.all (index 1)
+npm verb stack     at async Arborist.reify (C:\Users\win\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:159:5)
+npm verb stack     at async Install.exec (C:\Users\win\AppData\Roaming\npm\node_modules\npm\lib\commands\install.js:149:5)
+npm verb stack     at async module.exports (C:\Users\win\AppData\Roaming\npm\node_modules\npm\lib\cli-entry.js:61:5)
+npm verb cwd C:\Users\win\Documents\pgats-automacao-web\tmpBstackPackages
+npm verb Windows_NT 10.0.19045
+npm verb node v20.16.0
+npm verb npm  v9.8.1
+npm ERR! code EINVALIDTAGNAME
+npm ERR! Invalid tag name "^^15" of package "cypress@^^15": Tags may not have any characters that encodeURIComponent encodes.
+npm verb exit 1
+npm verb unfinished npm timer reify 1760816073105
+npm verb unfinished npm timer reify:loadTrees 1760816073118
+npm verb unfinished npm timer idealTree:buildDeps 1760816073178
+npm verb unfinished npm timer idealTree:#root 1760816073180
+npm verb code 1
+
+npm ERR! A complete log of this run can be found in: C:\Users\win\AppData\Local\npm-cache\_logs\2025-10-18T19_34_31_783Z-debug-0.log
