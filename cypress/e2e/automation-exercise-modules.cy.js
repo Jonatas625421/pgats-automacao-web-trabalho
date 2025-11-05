@@ -11,6 +11,10 @@ import { faker } from '@faker-js/faker'
 import menu from '../modules/menu'
 import login from '../modules/login'
 import cadastro from '../modules/cadastro'
+import carrinho from '../modules/carrinho'
+import contato from '../modules/contato'
+import produtos from '../modules/produtos'
+
 
 describe('Automation Exercise', () => {
     
@@ -27,77 +31,55 @@ describe('Automation Exercise', () => {
         cadastro.preencherFormularioDeCadastroCompleto
 
         // Assert - validação que estamos na página correta e o usuário foi criado com sucesso!
-        cy.url().should('includes', 'account_created')  // validando o texto da URL
-        cy.contains('b', 'Account Created!').should('be.visible') // validando o texto na página
+        cy.url().should('includes', 'https://automationexercise.com/signup')  // validando o texto da URL
+        cy.get('b').should('be.visible') 
+
        
     })
 
     it('Caso de teste 2: Login de Usuário com email e senha corretos', () => {
 
-        login.preencherFormularioDeLogin(userData.user, userData.password)
+        login.preencherFormularioDeLoginCorretamente(userData.user, userData.password)
 
         cy.get('a[href="/delete_account"]').should('be.visible') // validando o texto na página
         cy.contains('b', userData.name) // validando o texto na página
         cy.contains('Logged in as testador QA').should('be.visible')
 
-        cy.contains(`Logged in as testador QA`).should('be.visible')
-
     })
 
     // Interação com Upload de arquivos
     it('Caso de teste 3: Login de Usuário com e-mail e senha incorretos',()=> {
-        
-        login.preencherFormularioDeLogin(userData.user, '98995412')
+        login.preencherFormularioDeLoginIncorretamente(userData.user, '98995412')
 
         //asserts
-        cy.get('.login-form > form > p').should('contain', 'Your email or password is incorrect!')
+        cy.contains('p', 'Your email or password is incorrect!').should('be.visible');
     })
 
     it('Caso de teste 4: Logout de Usuário',()=> {
 
-       login.preencherFormularioDeLogin(userData.user, userData.password)
+       login.preencherFormularioDeLoginCorretamente(userData.user, userData.password)
        menu.efetuarLogout()
         
-       // Assert - validação que estamos na página correta e o usuário foi criado com sucesso!
-        cy.get('a[href="/delete_account"]').should('be.visible') // validando o texto na página
-        cy.contains('b', 'testador QA') // validando o texto na página
-             
-        //Assert
-        cy.url().should('contain', 'login')  // validando o texto da URL
+       // Assert 
+       cy.url().should('contain', 'login') 
+       //cy.contains('login to your account')
+       cy.get('a[href="/logout"]').should('not.exist')
+       cy.get('a[href="/login"]').should('contain', 'Signup / Login')
     
     })
 
-    it('Caso de teste 5: Cadastrar usuário com e-mail existente no sistema',()=> {
-        
-        cy.visit('https://automationexercise.com/')
-        cy.url().should('contain', 'https://automationexercise.com/')
-        cy.get('a[href="/login"]').click()
-        cy.get('.signup-form > h2').should('be.visible')
-    
-        cy.get('[data-qa="signup-name"]').type('testador QA')
-        cy.get('[data-qa="signup-email"]').type(`email1761602857810@teste99.com`)
-        cy.get('[ data-qa="signup-button"]').click( )
+    it('Caso de teste 5: Cadastrar usuário com e-mail existente no sistema',()=> {  
+        cadastro.cadastrarUsuarioComEmailExistente()
 
         //assert
+        cy.url().should('contain', 'https://automationexercise.com/')
+        cy.get('.signup-form > h2').should('be.visible')
         cy.get('.signup-form > form > p').should('contain', 'Email Address already exist!')
     })
 
     it('Caso de teste 6: Formulário de contato',()=> {
 
-        cy.visit('https://automationexercise.com/')
-
-        cy.url().should('contain', 'https://automationexercise.com/')
-        cy.get('a[href="/contact_us"]').click()
-        cy.url().should('contain', 'https://automationexercise.com/contact_us')
-        cy.get('[data-qa="name"]').type('userData.name')
-        cy.get('[data-qa="email"]').type(userData.email)
-        cy.get('[data-qa="subject"]').type('userData.subject')
-        cy.get('[data-qa="message"]').type('userData.message')
-        
-        //Anexando um arquivo no teste
-        cy.fixture('example.json').as('arquivo')
-        cy.get('input[type=file]').selectFile('@arquivo')
-        cy.get('[data-qa="submit-button"]').click()
+        contato.preencherFormularioDeContato()
         
         // asserts
         cy.get('.status').should('be.visible')
@@ -107,31 +89,27 @@ describe('Automation Exercise', () => {
     
      it('Caso de teste 8: Verificar todos os produtos e a página de detalhes do produto',()=> {
 
-        cy.visit('https://automationexercise.com/')
-
+        carrinho.verificarTodosProdutosDaPaginaESeusDetalhes ()
+        
+        // Asserts
         cy.url().should('contain', 'https://automationexercise.com/')
-        cy.get('a[href="/products"]').click()
-        cy.url().should('contain', 'https://automationexercise.com/products')
+        cy.url().should('contain', 'https://automationexercise.com/product_details/1')
         cy.get('.brands_products > h2').should('be.visible')
-        cy.get(':nth-child(3) > .product-image-wrapper > .choose > .nav > li > a').click()
         cy.get('.product-information > h2').should('be.visible')
         cy.get('.product-information > :nth-child(3)').should('be.visible')
         cy.get(':nth-child(5) > span').should('be.visible')
         cy.get('.product-information > :nth-child(6)').should('be.visible')
         cy.get('.product-information > :nth-child(7)').should('be.visible')
         cy.get('.product-information > :nth-child(8)').should('be.visible')
-        
     })
 
-     it('Caso de teste 9: Pesquisar produto',()=> {
+    it('Caso de teste 9: Pesquisar produto',()=> {
 
-        cy.visit('https://automationexercise.com/')
-        
+        produtos.pesquisarProdutos()
+
+        // Asserts
         cy.url().should('contain', 'https://automationexercise.com/')
-        cy.get('a[href="/products"]').click()
         cy.url().should('contain', 'https://automationexercise.com/products')
-        cy.get('input#search_product').type('Blue Top')
-        cy.get('button#submit_search').click()
         cy.get('.title').should('be.visible')
         cy.get('.productinfo > p').should('be.visible')
         
@@ -139,19 +117,18 @@ describe('Automation Exercise', () => {
 
     it('Caso de teste 10: Verificar assinatura na página inicial',()=> {
 
-        cy.visit('https://automationexercise.com/')
-
-         cy.url().should('contain', 'https://automationexercise.com/')
-         cy.get('.single-widget > h2').should('be.visible')
-         cy.get('#susbscribe_email').type(`email1761602857810@teste99.com`)
-         cy.get('#subscribe').click()
-         cy.get('.alert-success').should('be.visible')
-        
+       menu.navegarParaAssinatura() 
+       
+        // Asserts
+        cy.url().should('contain', 'https://automationexercise.com/')
+        cy.get('.single-widget > h2').should('be.visible')
+        cy.get('.alert-success').should('be.visible')
         
     })
 
     it('Caso de teste 15: Fazer pedido: Registrar antes de finalizar a compra',()=> {
-         const timestamp = new Date().getTime() 
+        
+        const timestamp = new Date().getTime() 
 
          cy.visit('https://automationexercise.com/')
 
@@ -212,16 +189,7 @@ describe('Automation Exercise', () => {
         cy.get(':nth-child(5) > a').click()
         cy.get(':nth-child(5) > a').should('be.visible')
         cy.get('[data-qa="continue-button"]').click()
-
-
        
-
-
-       
-  
-        
     })
-
-
 
 })

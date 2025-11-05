@@ -1,7 +1,11 @@
-node_modules
+
+# dependências e cache
+node_modules/
 package-lock.json
 
-cypress/screenshots
-cypress/videos
-cypress/reports
+# saídas de teste Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/reports/
+
 

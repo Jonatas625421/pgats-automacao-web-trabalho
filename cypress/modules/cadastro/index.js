@@ -35,6 +35,19 @@ class Cadastro {
         cy.get('[data-qa="create-account"]').click()
 
     }
+
+    cadastrarUsuarioComEmailExistente() {
+        
+        cy.visit('https://automationexercise.com/')
+        cy.get('a[href="/login"]').click()
+
+        cy.get('[data-qa="signup-name"]').type('testador QA')
+        cy.get('[data-qa="signup-email"]').type(`email1761602857810@teste99.com`)
+        cy.get('[ data-qa="signup-button"]').click( )
+    }
+
+    
+        
 }
 
-export default new Cadastro()   
+export default new Cadastro()

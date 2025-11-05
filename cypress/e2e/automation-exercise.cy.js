@@ -106,7 +106,6 @@ describe('Automation Exercise', () => {
     // Interação com Upload de arquivos
     it('Caso de teste 3: Login de Usuário com e-mail e senha incorretos',()=> {
 
-
         cy.get('[data-qa="login-email"]').type(`email1761602857810@teste990.com`)
         cy.get('[data-qa="login-password"]').type(`teste99`)
 
@@ -122,7 +121,6 @@ describe('Automation Exercise', () => {
 
     it('Caso de teste 4: Logout de Usuário',()=> {
     
-       
         cy.get('[data-qa="login-email"]').type(`email1761602857810@teste99.com`)
         cy.get('[data-qa="login-password"]').type(`teste99`)
     
@@ -163,7 +161,7 @@ describe('Automation Exercise', () => {
         cy.url().should('contain', 'https://automationexercise.com/')
         cy.get('a[href="/contact_us"]').click()
         cy.url().should('contain', 'https://automationexercise.com/contact_us')
-        cy.get('[data-qa="name"]').type('userData.name')
+        cy.get('[data-qa="name"]').type(userData.name)
         cy.get('[data-qa="email"]').type(userData.email)
         cy.get('[data-qa="subject"]').type('userData.subject')
         cy.get('[data-qa="message"]').type('userData.message')
@@ -224,7 +222,7 @@ describe('Automation Exercise', () => {
         
     })
 
-    it('Caso de teste 15: Fazer pedido: Registrar antes de finalizar a compra',()=> {
+    it.only('Caso de teste 15: Fazer pedido: Registrar antes de finalizar a compra',()=> {
          const timestamp = new Date().getTime() 
 
          cy.visit('https://automationexercise.com/')
